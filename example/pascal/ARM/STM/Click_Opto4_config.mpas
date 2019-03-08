@@ -1,0 +1,5 @@
+unit Click_Opto4_config;
+
+uses Click_Opto4_types;
+
+end.

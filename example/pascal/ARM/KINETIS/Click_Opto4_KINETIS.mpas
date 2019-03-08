@@ -1,0 +1,54 @@
+{
+Example for Opto4 Click
+
+    Date          : okt 2018.
+    Author        : Katarina Perendic
+
+Test configuration KINETIS :
+    
+    MCU              : MK64
+    Dev. Board       : HEXIWEAR
+    ARM Compiler ver : v6.0.0.0
+
+---
+
+Description :
+
+The application is composed of three sections :
+
+- System Initialization - Sets CS pin as OUTPUT
+- Application Initialization - Initialization driver init
+- Application Task - (code snippet) - The Output voltage enable and disable every 3 sec.
+}
+program Click_Opto4_KINETIS;
+
+uses Click_Opto4_types, Click_Opto4_config;
+
+procedure systemInit(); 
+begin
+    mikrobus_gpioInit(_MIKROBUS1, _MIKROBUS_CS_PIN, _GPIO_OUTPUT); 
+    Delay_ms(100); 
+end;
+
+procedure applicationInit(); 
+begin
+    opto4_gpioDriverInit(T_OPTO4_P(@_MIKROBUS1_GPIO)); 
+end;
+
+procedure applicationTask(); 
+begin
+    opto4_outputEnable(_OPTO4_OUTPUT_ENABLE); 
+    Delay_ms(3000); 
+    opto4_outputEnable(_OPTO4_OUTPUT_DISABLE); 
+    Delay_ms(3000); 
+end;
+
+begin
+
+    systemInit(); 
+    applicationInit(); 
+    while (1) do 
+    begin 
+        applicationTask(); 
+    end;
+end.

@@ -1,0 +1,4 @@
+module Click_Opto4_config
+
+include Click_Opto4_types
+end.
